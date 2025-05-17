@@ -12,6 +12,8 @@ import MediaPage from "@/pages/MediaPage";
 import SearchResultsPage from "@/pages/SearchResultsPage";
 import ProfilePage from "@/pages/ProfilePage";
 import { AuthProvider } from "@/hooks/useAuth";
+import { useEffect } from "react";
+import { preventScreenshots } from "@/lib/screenshotPrevention";
 
 function Router() {
   return (
@@ -28,6 +30,11 @@ function Router() {
 }
 
 function App() {
+  // Initialize screenshot prevention
+  useEffect(() => {
+    preventScreenshots();
+  }, []);
+
   return (
     <AuthProvider>
       <TooltipProvider>

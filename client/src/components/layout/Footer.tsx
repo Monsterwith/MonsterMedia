@@ -135,10 +135,10 @@ export default function Footer() {
               <li className="text-muted-foreground">
                 <Mail size={16} className="inline-block mr-2 text-primary" />
                 <a 
-                  href="mailto:admin@monsterwith.com" 
+                  href="mailto:sammynewlife1@gmail.com" 
                   className="hover:text-foreground transition"
                 >
-                  admin@monsterwith.com
+                  sammynewlife1@gmail.com
                 </a>
               </li>
               <li className="text-muted-foreground">
@@ -152,10 +152,19 @@ export default function Footer() {
               <li className="text-muted-foreground">
                 <Bug size={16} className="inline-block mr-2 text-primary" />
                 <a 
-                  href="mailto:support@monsterwith.com" 
+                  href="mailto:sammynewlife1@gmail.com" 
                   className="hover:text-foreground transition"
                 >
                   Report an Issue
+                </a>
+              </li>
+              <li className="text-muted-foreground flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2 text-primary mt-1"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 14v1"/><path d="M9 19v2"/><path d="M9 3v2"/><path d="M9 9v1"/><path d="M15 14v1"/><path d="M15 19v2"/><path d="M15 3v2"/><path d="M15 9v1"/></svg>
+                <a 
+                  href="mailto:sammynewlife1@gmail.com" 
+                  className="hover:text-foreground transition"
+                >
+                  Advertising Partnership
                 </a>
               </li>
             </ul>

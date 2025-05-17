@@ -69,6 +69,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   apiRouter.get('/ai/recommendations', isAuthenticated, aiController.getRecommendations);
   apiRouter.get('/ai/enhance-search', aiController.enhanceSearch);
   apiRouter.post('/ai/analyze-content', isAuthenticated, aiController.analyzeContentMetadata);
+  
+  // Health check endpoint for monitoring services (UptimeRobot, etc.)
+  apiRouter.get('/health', (req, res) => {
+    res.status(200).json({ 
+      status: 'ok',
+      timestamp: new Date(),
+      uptime: process.uptime()
+    });
+  });
 
   const httpServer = createServer(app);
 

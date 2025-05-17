@@ -49,6 +49,25 @@ export default function HomePage() {
   
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Ad-Free Banner */}
+      <div className="mb-8 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-lg p-4 shadow-md">
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <div>
+            <h2 className="text-xl font-bold mb-2">100% Ad-Free Experience</h2>
+            <p className="text-muted-foreground">
+              MONSTERWITH is proudly ad-free for all users. For advertising partnerships or inquiries, 
+              please contact <a href="mailto:sammynewlife1@gmail.com" className="text-primary hover:underline">sammynewlife1@gmail.com</a>
+            </p>
+          </div>
+          <Button 
+            className="mt-4 md:mt-0 bg-secondary hover:bg-secondary/80"
+            onClick={() => setShowVipModal(true)}
+          >
+            Upgrade to VIP
+          </Button>
+        </div>
+      </div>
+      
       {/* Featured Content */}
       <FeaturedContent 
         content={featuredQuery.data} 
