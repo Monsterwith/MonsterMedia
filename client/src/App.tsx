@@ -46,6 +46,8 @@ function App() {
             <Router />
           </main>
           <Footer />
+          {/* Add the Sammy AI Assistant */}
+          <SammyAIAssistant />
         </div>
       </TooltipProvider>
     </AuthProvider>
