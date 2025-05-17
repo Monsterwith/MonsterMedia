@@ -9,6 +9,7 @@ import CategoryTabs from './CategoryTabs';
 import LoginForm from '../auth/LoginForm';
 import SignupForm from '../auth/SignupForm';
 import UserMenu from '../auth/UserMenu';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import {
   Dialog,
   DialogContent,
@@ -134,6 +135,10 @@ export default function Header() {
                     </div>
                   ) : (
                     <div className="flex flex-col space-y-2">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium">Theme</span>
+                        <ThemeToggle />
+                      </div>
                       <Button
                         onClick={() => {
                           setShowMobileMenu(false);
@@ -166,6 +171,7 @@ export default function Header() {
           
           {/* User controls */}
           <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
             {user ? (
               <UserMenu user={user} />
             ) : (
