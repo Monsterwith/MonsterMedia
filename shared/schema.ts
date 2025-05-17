@@ -8,8 +8,10 @@ export const users = pgTable("users", {
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
   email: text("email").notNull().unique(),
+  age: integer("age"), // User's age for content restrictions
   isVip: boolean("is_vip").default(false).notNull(),
   isAdmin: boolean("is_admin").default(false).notNull(),
+  receiveNotifications: boolean("receive_notifications").default(true).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -35,6 +37,7 @@ export const content = pgTable("content", {
   requiresVip: boolean("requires_vip").default(false).notNull(),
   tags: text("tags").array(), // For search functionality
   metadata: jsonb("metadata"), // Store additional type-specific metadata
+  ageRating: integer("age_rating").default(0).notNull(), // Age restriction (0 = all ages, 18 = adults only)
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -72,6 +75,93 @@ export const downloads = pgTable("downloads", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id).notNull(),
   contentId: integer("content_id").references(() => content.id).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Images platform
+export const images = pgTable("images", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description"),
+  imageUrl: text("image_url").notNull(),
+  uploadedBy: integer("uploaded_by").references(() => users.id),
+  ageRating: integer("age_rating").default(0).notNull(), // Age restriction (0 = all ages, 18 = adults only)
+  tags: text("tags").array(),
+  viewCount: integer("view_count").default(0).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Notification system
+export const notifications = pgTable("notifications", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  message: text("message").notNull(),
+  createdBy: integer("created_by").references(() => users.id),
+  isGlobal: boolean("is_global").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const userNotifications = pgTable("user_notifications", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  notificationId: integer("notification_id").references(() => notifications.id).notNull(),
+  isRead: boolean("is_read").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// SEO metadata for Google searchability
+export const seoMetadata = pgTable("seo_metadata", {
+  id: serial("id").primaryKey(),
+  entityType: text("entity_type").notNull(), // 'content', 'image', etc.
+  entityId: integer("entity_id").notNull(),
+  metaTitle: text("meta_title"),
+  metaDescription: text("meta_description"),
+  keywords: text("keywords").array(),
+  canonicalUrl: text("canonical_url"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Chat groups for users to share ideas and interact with ۞𝑺𝑨𝑴𝑴𝒀۞ bot
+export const chatGroups = pgTable("chat_groups", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+  createdBy: integer("created_by").references(() => users.id),
+  isPublic: boolean("is_public").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Chat group members
+export const chatGroupMembers = pgTable("chat_group_members", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  groupId: integer("group_id").references(() => chatGroups.id).notNull(),
+  role: text("role").default("member").notNull(), // 'member', 'moderator', 'admin'
+  joinedAt: timestamp("joined_at").defaultNow().notNull(),
+});
+
+// Messages for both private and group chats
+export const messages = pgTable("messages", {
+  id: serial("id").primaryKey(),
+  senderId: integer("sender_id").references(() => users.id).notNull(),
+  receiverId: integer("receiver_id").references(() => users.id), // NULL if group message
+  groupId: integer("group_id").references(() => chatGroups.id), // NULL if private message
+  content: text("content"),
+  contentType: text("content_type").default("text").notNull(), // 'text', 'image', 'video', 'audio', 'file'
+  mediaUrl: text("media_url"), // URL for media content (image, video, audio, etc.)
+  mediaSource: text("media_source"), // Source of media (Google, YouTube, etc.)
+  isFromBot: boolean("is_from_bot").default(false).notNull(), // True if message is from ۞𝑺𝑨𝑴𝑴𝒀۞ bot
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Message reactions
+export const messageReactions = pgTable("message_reactions", {
+  id: serial("id").primaryKey(),
+  messageId: integer("message_id").references(() => messages.id).notNull(),
+  userId: integer("user_id").references(() => users.id).notNull(),
+  reaction: text("reaction").notNull(), // 'like', 'heart', 'laugh', etc.
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
