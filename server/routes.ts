@@ -9,6 +9,7 @@ import MemoryStore from "memorystore";
 import * as authController from "./controllers/auth";
 import * as contentController from "./controllers/content";
 import * as adminController from "./controllers/admin";
+import * as aiController from "./controllers/ai";
 
 // Import middleware
 import { isAuthenticated, isAdmin, isVip, optionalAuth } from "./middleware/auth";
@@ -63,6 +64,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   apiRouter.patch('/admin/vip-requests/:id', isAuthenticated, isAdmin, adminController.updateVipRequestStatus);
   apiRouter.get('/theme', adminController.getThemeSettings);
   apiRouter.post('/admin/theme', isAuthenticated, isAdmin, adminController.updateThemeSettings);
+
+  // AI routes
+  apiRouter.get('/ai/recommendations', isAuthenticated, aiController.getRecommendations);
+  apiRouter.get('/ai/enhance-search', aiController.enhanceSearch);
+  apiRouter.post('/ai/analyze-content', isAuthenticated, aiController.analyzeContentMetadata);
 
   const httpServer = createServer(app);
 
