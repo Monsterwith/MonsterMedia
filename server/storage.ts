@@ -353,7 +353,7 @@ export class MemStorage implements IStorage {
   }
 }
 
-import { DatabaseStorage } from './dbStorage';
+import { DBStorage } from './db/setupStorage';
 
-// Use DatabaseStorage instead of MemStorage to store data persistently
-export const storage = new DatabaseStorage();
+// Use DBStorage for persistent data storage including your admin accounts
+export const storage = new DBStorage();

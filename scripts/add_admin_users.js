@@ -1,5 +1,6 @@
 // This script adds admin users directly to the database
-const { Pool } = require('pg');
+import pg from 'pg';
+const { Pool } = pg;
 
 // Connect to the database
 const pool = new Pool({
