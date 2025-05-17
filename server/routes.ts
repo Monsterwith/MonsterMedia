@@ -10,6 +10,7 @@ import * as authController from "./controllers/auth";
 import * as contentController from "./controllers/content";
 import * as adminController from "./controllers/admin";
 import * as aiController from "./controllers/ai";
+import * as chatController from "./controllers/chat";
 
 // Import middleware
 import { isAuthenticated, isAdmin, isVip, optionalAuth } from "./middleware/auth";
@@ -69,6 +70,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   apiRouter.get('/ai/recommendations', isAuthenticated, aiController.getRecommendations);
   apiRouter.get('/ai/enhance-search', aiController.enhanceSearch);
   apiRouter.post('/ai/analyze-content', isAuthenticated, aiController.analyzeContentMetadata);
+  apiRouter.post('/ai/chat', chatController.handleChatMessage);
   
   // Health check endpoint for monitoring services (UptimeRobot, etc.)
   apiRouter.get('/health', (req, res) => {
