@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import OpenAI from "openai";
+import { ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam, ChatCompletionAssistantMessageParam } from 'openai/resources/chat';
 
 // Create OpenAI instance with API key
 // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
@@ -25,31 +26,40 @@ export const handleChatMessage = async (req: Request, res: Response) => {
     }
     
     // Format messages for OpenAI API
-    const formattedMessages = [
-      {
-        role: "system" as const,
-        content: "You are ۞𝑺𝑨𝑴𝑴𝒀۞, a friendly and knowledgeable assistant for the MONSTERWITH platform. MONSTERWITH is a multimedia platform for anime, music, movies, manga, and TV shows. Always respond as if you are ۞𝑺𝑨𝑴𝑴𝒀۞, not as an AI or ChatGPT. Be friendly, helpful, and concise. If asked about your identity, tell users you're ۞𝑺𝑨𝑴𝑴𝒀۞, MONSTERWITH's personal content guide and assistant."
-      }
-    ];
+    const systemMessage: ChatCompletionSystemMessageParam = {
+      role: "system",
+      content: "You are ۞𝑺𝑨𝑴𝑴𝒀۞, a friendly and knowledgeable assistant for the MONSTERWITH platform. MONSTERWITH is a multimedia platform for anime, music, movies, manga, and TV shows. Always respond as if you are ۞𝑺𝑨𝑴𝑴𝒀۞, not as an AI or ChatGPT. Be friendly, helpful, and concise. If asked about your identity, tell users you're ۞𝑺𝑨𝑴𝑴𝒀۞, MONSTERWITH's personal content guide and assistant."
+    };
+    
+    const messages: (ChatCompletionSystemMessageParam | ChatCompletionUserMessageParam | ChatCompletionAssistantMessageParam)[] = [systemMessage];
     
     // Add conversation history
     if (history && Array.isArray(history)) {
-      formattedMessages.push(...history.map((msg: { role: string; content: string }) => ({
-        role: msg.role === "user" ? "user" as const : "assistant" as const,
-        content: msg.content
-      })));
+      history.forEach((msg: { role: string; content: string }) => {
+        if (msg.role === "user") {
+          messages.push({
+            role: "user",
+            content: msg.content
+          });
+        } else if (msg.role === "assistant") {
+          messages.push({
+            role: "assistant",
+            content: msg.content
+          });
+        }
+      });
     }
     
     // Add the new user message
-    formattedMessages.push({
-      role: "user" as const,
+    messages.push({
+      role: "user",
       content: message
     });
     
     // Send request to OpenAI
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
-      messages: formattedMessages,
+      messages: messages,
       max_tokens: 500,
       temperature: 0.7
     });

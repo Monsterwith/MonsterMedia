@@ -14,6 +14,7 @@ import ProfilePage from "@/pages/ProfilePage";
 import { AuthProvider } from "@/hooks/useAuth";
 import { useEffect } from "react";
 import { preventScreenshots } from "@/lib/screenshotPrevention";
+import { SammyAIAssistant } from "@/components/ui/sammy-ai-assistant";
 
 function Router() {
   return (
