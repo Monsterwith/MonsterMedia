@@ -17,6 +17,7 @@ import {
   DialogHeader,
 } from '@/components/ui/dialog';
 import VipRequestForm from '@/components/auth/VipRequestForm';
+import { LoadingOverlay, ContentCardSkeleton, LoadingAnimation } from '@/components/ui/loading-animation';
 import { useState } from 'react';
 
 export default function HomePage() {
@@ -86,11 +87,17 @@ export default function HomePage() {
           </Link>
         </div>
         
-        <ContentGrid 
-          contents={vipContentQuery.data || []}
+        <LoadingOverlay 
           isLoading={vipContentQuery.isLoading}
-          emptyMessage="No VIP content available"
-        />
+          message="Loading exclusive VIP content..."
+          className="min-h-[200px]"
+        >
+          <ContentGrid 
+            contents={vipContentQuery.data || []}
+            isLoading={false}
+            emptyMessage="No VIP content available"
+          />
+        </LoadingOverlay>
         
         {/* VIP Upsell for non-VIP users */}
         {(!user?.isVip) && (
@@ -128,11 +135,17 @@ export default function HomePage() {
           </Link>
         </div>
         
-        <ContentGrid 
-          contents={animeQuery.data || []}
+        <LoadingOverlay 
           isLoading={animeQuery.isLoading}
-          emptyMessage="No anime content available"
-        />
+          message="Loading popular anime..."
+          className="min-h-[200px]"
+        >
+          <ContentGrid 
+            contents={animeQuery.data || []}
+            isLoading={false}
+            emptyMessage="No anime content available"
+          />
+        </LoadingOverlay>
       </section>
       
       {/* Popular Music Section */}
@@ -144,11 +157,17 @@ export default function HomePage() {
           </Link>
         </div>
         
-        <ContentGrid 
-          contents={musicQuery.data || []}
+        <LoadingOverlay 
           isLoading={musicQuery.isLoading}
-          emptyMessage="No music content available"
-        />
+          message="Loading popular music..."
+          className="min-h-[200px]"
+        >
+          <ContentGrid 
+            contents={musicQuery.data || []}
+            isLoading={false}
+            emptyMessage="No music content available"
+          />
+        </LoadingOverlay>
       </section>
       
       {/* VIP Request Modal */}
