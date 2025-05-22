@@ -21,21 +21,21 @@ export function useMusicFiles() {
             id: "1",
             title: "Strongest",
             artist: "Alan Walker & Ina Wroldsen",
-            url: "/music/Alan Walker & Ina Wroldsen - Strongest (Lyrics)",
+            url: "/music/Alan%20Walker%20%26%20Ina%20Wroldsen%20-%20Strongest%20(Lyrics)",
             duration: 210 // 3:30 approximate
           },
           {
             id: "2",
             title: "Mirrors",
             artist: "Justin Timberlake",
-            url: "/music/Justin Timberlake - Mirrors (Official Audio)",
+            url: "/music/Justin%20Timberlake%20-%20Mirrors%20(Official%20Audio)",
             duration: 485 // 8:05 approximate
           },
           {
             id: "3",
             title: "That's What I Get",
             artist: "charlieonnafriday",
-            url: "/music/charlieonnafriday - That's What I Get (Official Music Video)",
+            url: "/music/charlieonnafriday%20-%20That's%20What%20I%20Get%20(Official%20Music%20Video)",
             duration: 195 // 3:15 approximate
           }
         ];
