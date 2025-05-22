@@ -36,6 +36,7 @@ function Router() {
 function App() {
   const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false);
   const [isSammyOpen, setIsSammyOpen] = useState(false);
+  const { tracks: musicTracks, isLoading: musicLoading } = useMusicFiles();
 
   // Initialize screenshot prevention
   useEffect(() => {
@@ -49,24 +50,6 @@ function App() {
   const handleSammyClick = () => {
     setIsSammyOpen(true);
   };
-
-  // Sample music tracks for demo
-  const sampleTracks = [
-    {
-      id: "1",
-      title: "Anime Opening Theme",
-      artist: "Unknown Artist",
-      url: "/sample-audio.mp3", // You can add real audio files later
-      duration: 180
-    },
-    {
-      id: "2", 
-      title: "Japanese Lo-Fi Beat",
-      artist: "Chill Vibes",
-      url: "/sample-audio2.mp3",
-      duration: 240
-    }
-  ];
 
   return (
     <AuthProvider>
@@ -89,7 +72,7 @@ function App() {
           <MusicPlayer 
             isOpen={isMusicPlayerOpen}
             onClose={() => setIsMusicPlayerOpen(false)}
-            tracks={sampleTracks}
+            tracks={musicTracks}
           />
           
           {/* Sammy AI Assistant - only show if triggered from floating tab */}
