@@ -17,7 +17,7 @@ export default function ThemeSettings() {
   const [backgroundColor, setBackgroundColor] = useState(theme?.backgroundColor || '#121212');
   
   const [siteName] = useState('MONSTERWITH');
-  const [adminEmail] = useState('admin@monsterwith.com');
+  const [adminEmail] = useState('sammynewlife1@gmail.com');
   const [siteDescription] = useState('Your ultimate platform for anime, manga, music, and movies.');
 
   const handleSaveChanges = () => {

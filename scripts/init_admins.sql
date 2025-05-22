@@ -13,10 +13,10 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Add first admin user (if not exists)
 INSERT INTO users (username, email, password, "isVip", "isAdmin")
-VALUES ('sammy1', 'sammynewlife1@gmail.com', 'King k763', TRUE, TRUE)
+VALUES ('Momsterwith', 'sammynewlife1@gmail.com', 'King k763', TRUE, TRUE)
 ON CONFLICT (email) DO NOTHING;
 
 -- Add second admin user (if not exists)
 INSERT INTO users (username, email, password, "isVip", "isAdmin")
-VALUES ('sammy2', 'sammynewlife2@gmail.com', 'King k763', TRUE, TRUE)
+VALUES ('SAMMY', 'sammynewlife2@gmail.com', 'King k763', TRUE, TRUE)
 ON CONFLICT (email) DO NOTHING;

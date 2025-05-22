@@ -31,7 +31,7 @@ async function createAdminUsers() {
       await pool.query(`
         INSERT INTO users (username, email, password, "isVip", "isAdmin")
         VALUES ($1, $2, $3, $4, $5)
-      `, ['sammy1', 'sammynewlife1@gmail.com', 'King k763', true, true]);
+      `, ['Monsterwith', 'sammynewlife1@gmail.com', 'King k763', true, true]);
       console.log('Admin user 1 created successfully');
     } else {
       console.log('Admin user 1 already exists');
@@ -44,7 +44,7 @@ async function createAdminUsers() {
       await pool.query(`
         INSERT INTO users (username, email, password, "isVip", "isAdmin")
         VALUES ($1, $2, $3, $4, $5)
-      `, ['sammy2', 'sammynewlife2@gmail.com', 'King k763', true, true]);
+      `, ['SAMMY', 'sammynewlife2@gmail.com', 'King k763', true, true]);
       console.log('Admin user 2 created successfully');
     } else {
       console.log('Admin user 2 already exists');

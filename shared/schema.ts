@@ -169,6 +169,8 @@ export const messageReactions = pgTable("message_reactions", {
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
   createdAt: true,
+}).extend({
+  age: z.number().min(13).optional(),
 });
 
 export const insertContentSchema = createInsertSchema(content).omit({

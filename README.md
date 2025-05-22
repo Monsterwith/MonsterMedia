@@ -1,6 +1,7 @@
 # MONSTERWITH
 
-MONSTERWITH is a multimedia platform for streaming and downloading anime, music, videos, movies, and manga with both free and VIP access options.
+MONSTERWITH is a multimedia platform for streaming and downloading anime, music, videos, movies, and manga with both free and VIP access options, for more information contact sammynewlife1@gmail.com 
+or whatsapp country code Zambia +260970901273.
 
 ## Features
 
