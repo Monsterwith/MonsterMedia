@@ -200,7 +200,11 @@ export default function ProfilePage() {
                     <div className="flex justify-between border-b pb-2">
                       <span className="text-muted-foreground">Account Type:</span>
                       <span className="font-medium">
-                        {user.isVip ? (
+                        {user.isAdmin ? (
+                          <span className="bg-red-600 text-xs px-2 py-0.5 rounded-full text-white">
+                            Admin Owner
+                          </span>
+                        ) : user.isVip ? (
                           <span className="vip-badge text-xs px-2 py-0.5 rounded-full text-white">
                             VIP
                           </span>
