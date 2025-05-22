@@ -17,6 +17,7 @@ import { preventScreenshots } from "@/lib/screenshotPrevention";
 import { SammyAIAssistant } from "@/components/ui/sammy-ai-assistant";
 import { FloatingTab } from "@/components/ui/floating-tab";
 import { MusicPlayer } from "@/components/ui/music-player";
+import { useMusicFiles } from "@/hooks/useMusicFiles";
 
 function Router() {
   return (
