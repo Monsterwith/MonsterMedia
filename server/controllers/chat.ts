@@ -4,9 +4,9 @@ import { ChatCompletionSystemMessageParam, ChatCompletionUserMessageParam, ChatC
 
 // Create OpenAI instance with API key
 // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-const openai = new OpenAI({
+const openai = process.env.OPENAI_API_KEY ? new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
-});
+}) : null;
 
 // Handle chat messages
 export const handleChatMessage = async (req: Request, res: Response) => {
@@ -17,11 +17,20 @@ export const handleChatMessage = async (req: Request, res: Response) => {
       return res.status(400).json({ message: 'No message provided' });
     }
     
-    // Check if OpenAI API key is available
-    if (!process.env.OPENAI_API_KEY) {
-      return res.status(503).json({ 
-        message: 'AI assistant is not available at this time',
-        reason: 'Missing OpenAI API key' 
+    // Check if OpenAI is available
+    if (!openai) {
+      // Return fallback response when OpenAI is not available
+      const fallbackResponses = [
+        "Hello! I'm ۞𝑺𝑨𝑴𝑴𝒀۞, your guide to MONSTERWITH! I'm here to help you discover amazing anime, music, movies, and more!",
+        "I'd love to help you explore our content library! What type of media are you interested in today?",
+        "Welcome to MONSTERWITH! I can assist you with finding great anime, music, movies, manga, and TV shows.",
+        "Hi there! I'm ۞𝑺𝑨𝑴𝑴𝒀۞ and I'm excited to help you navigate our amazing collection of entertainment!",
+        "Looking for something specific? I'm here to help you discover the perfect content on MONSTERWITH!"
+      ];
+      
+      const randomResponse = fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+      return res.status(200).json({
+        response: randomResponse
       });
     }
     

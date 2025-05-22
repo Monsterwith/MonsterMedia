@@ -3,9 +3,9 @@ import { Content } from "@shared/schema";
 
 // Create OpenAI instance with API key
 // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-const openai = new OpenAI({
+const openai = process.env.OPENAI_API_KEY ? new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
-});
+}) : null;
 
 /**
  * Get content recommendations based on user preferences and history
@@ -17,6 +17,11 @@ export async function getContentRecommendations(
   contentType?: string
 ): Promise<Content[]> {
   try {
+    // Check if OpenAI is available
+    if (!openai) {
+      return []; // Return empty array if no API key
+    }
+
     // Combine user's favorites and downloads to analyze preferences
     const userContent = [...userFavorites, ...userDownloads];
     
@@ -81,6 +86,11 @@ export async function enhanceSearchResults(
   initialResults: Content[]
 ): Promise<Content[]> {
   try {
+    // Check if OpenAI is available
+    if (!openai) {
+      return initialResults; // Return original results if no API key
+    }
+
     // If we have enough results or query is a URL, don't enhance
     if (initialResults.length > 5 || query.startsWith('http')) {
       return initialResults;
@@ -144,6 +154,15 @@ export async function analyzeContent(
   metadata: any;
 }> {
   try {
+    // Check if OpenAI is available
+    if (!openai) {
+      return {
+        type: "movie", // Default type
+        tags: [],
+        metadata: {}
+      };
+    }
+
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [

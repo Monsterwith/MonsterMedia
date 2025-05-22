@@ -12,9 +12,11 @@ import MediaPage from "@/pages/MediaPage";
 import SearchResultsPage from "@/pages/SearchResultsPage";
 import ProfilePage from "@/pages/ProfilePage";
 import { AuthProvider } from "@/hooks/useAuth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { preventScreenshots } from "@/lib/screenshotPrevention";
 import { SammyAIAssistant } from "@/components/ui/sammy-ai-assistant";
+import { FloatingTab } from "@/components/ui/floating-tab";
+import { MusicPlayer } from "@/components/ui/music-player";
 
 function Router() {
   return (
@@ -31,10 +33,39 @@ function Router() {
 }
 
 function App() {
+  const [isMusicPlayerOpen, setIsMusicPlayerOpen] = useState(false);
+  const [isSammyOpen, setIsSammyOpen] = useState(false);
+
   // Initialize screenshot prevention
   useEffect(() => {
     preventScreenshots();
   }, []);
+
+  const handleMusicClick = () => {
+    setIsMusicPlayerOpen(true);
+  };
+
+  const handleSammyClick = () => {
+    setIsSammyOpen(true);
+  };
+
+  // Sample music tracks for demo
+  const sampleTracks = [
+    {
+      id: "1",
+      title: "Anime Opening Theme",
+      artist: "Unknown Artist",
+      url: "/sample-audio.mp3", // You can add real audio files later
+      duration: 180
+    },
+    {
+      id: "2", 
+      title: "Japanese Lo-Fi Beat",
+      artist: "Chill Vibes",
+      url: "/sample-audio2.mp3",
+      duration: 240
+    }
+  ];
 
   return (
     <AuthProvider>
@@ -46,8 +77,24 @@ function App() {
             <Router />
           </main>
           <Footer />
-          {/* Add the Sammy AI Assistant */}
-          <SammyAIAssistant />
+          
+          {/* Floating Tab with File Cabinet Icon */}
+          <FloatingTab 
+            onMusicClick={handleMusicClick}
+            onSammyClick={handleSammyClick}
+          />
+          
+          {/* Music Player */}
+          <MusicPlayer 
+            isOpen={isMusicPlayerOpen}
+            onClose={() => setIsMusicPlayerOpen(false)}
+            tracks={sampleTracks}
+          />
+          
+          {/* Sammy AI Assistant - only show if triggered from floating tab */}
+          {isSammyOpen && (
+            <SammyAIAssistant />
+          )}
         </div>
       </TooltipProvider>
     </AuthProvider>
