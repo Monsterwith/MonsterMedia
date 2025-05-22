@@ -33,6 +33,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     })
   );
 
+  // Serve music files
+  app.use('/music', express.static('music'));
+
   // Base API route
   const apiRouter = express.Router();
   app.use('/api', apiRouter);
