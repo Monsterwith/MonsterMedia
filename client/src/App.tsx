@@ -11,6 +11,7 @@ import CategoryPage from "@/pages/CategoryPage";
 import MediaPage from "@/pages/MediaPage";
 import SearchResultsPage from "@/pages/SearchResultsPage";
 import ProfilePage from "@/pages/ProfilePage";
+import AdminPanel from "@/pages/AdminPanel";
 import { AuthProvider } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { preventScreenshots } from "@/lib/screenshotPrevention";
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/media/:id" component={MediaPage} />
       <Route path="/search" component={SearchResultsPage} />
       <Route path="/profile/:section?" component={ProfilePage} />
+      <Route path="/admin" component={AdminPanel} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
