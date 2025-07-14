@@ -32,8 +32,8 @@ export default function Header() {
           <div className="flex items-center justify-between w-full md:w-auto">
             <Link href="/">
               <a className="text-2xl font-bold font-poppins">
-                <span className="text-primary">MONSTER</span>
-                <span className="text-secondary">WITH</span>
+                <span className="text-primary">Monster</span>
+                <span className="text-secondary">Media</span>
               </a>
             </Link>
             
@@ -48,8 +48,8 @@ export default function Header() {
                 <div className="py-6 space-y-6">
                   <Link href="/">
                     <a onClick={() => setShowMobileMenu(false)} className="text-xl font-bold font-poppins">
-                      <span className="text-primary">MONSTER</span>
-                      <span className="text-secondary">WITH</span>
+                      <span className="text-primary">Monster</span>
+                      <span className="text-secondary">Media</span>
                     </a>
                   </Link>
                   
@@ -92,6 +92,22 @@ export default function Header() {
                         className="px-2 py-1 hover:text-primary transition-colors"
                       >
                         TV Shows
+                      </a>
+                    </Link>
+                    <Link href="/videos">
+                      <a 
+                        onClick={() => setShowMobileMenu(false)}
+                        className="px-2 py-1 hover:text-primary transition-colors"
+                      >
+                        Videos
+                      </a>
+                    </Link>
+                    <Link href="/community">
+                      <a 
+                        onClick={() => setShowMobileMenu(false)}
+                        className="px-2 py-1 hover:text-primary transition-colors"
+                      >
+                        Community
                       </a>
                     </Link>
                   </nav>

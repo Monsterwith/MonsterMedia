@@ -12,6 +12,10 @@ import MediaPage from "@/pages/MediaPage";
 import SearchResultsPage from "@/pages/SearchResultsPage";
 import ProfilePage from "@/pages/ProfilePage";
 import AdminPanel from "@/pages/AdminPanel";
+import VideosPage from "@/pages/VideosPage";
+import CommunityPage from "@/pages/CommunityPage";
+import MangaReaderPage from "@/pages/MangaReaderPage";
+import MoviesPage from "@/pages/MoviesPage";
 import { AuthProvider } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { preventScreenshots } from "@/lib/screenshotPrevention";
@@ -29,6 +33,10 @@ function Router() {
       <Route path="/search" component={SearchResultsPage} />
       <Route path="/profile/:section?" component={ProfilePage} />
       <Route path="/admin" component={AdminPanel} />
+      <Route path="/videos" component={VideosPage} />
+      <Route path="/community" component={CommunityPage} />
+      <Route path="/manga/:id/:chapter?" component={MangaReaderPage} />
+      <Route path="/movies" component={MoviesPage} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>

@@ -15,7 +15,7 @@ import * as chatController from "./controllers/chat";
 // Import middleware
 import { isAuthenticated, isAdmin, isVip, optionalAuth } from "./middleware/auth";
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export async function registerRoutes(app: Express, httpServer?: Server): Promise<Server> {
   // Set up session middleware
   const MemoryStoreSession = MemoryStore(session);
   app.use(
@@ -84,7 +84,5 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  const httpServer = createServer(app);
-
-  return httpServer;
+  return httpServer || createServer(app);
 }

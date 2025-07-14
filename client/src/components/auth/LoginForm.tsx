@@ -112,7 +112,8 @@ export default function LoginForm({ onSuccess, onRegisterClick }: LoginFormProps
   };
   
   return (
-    <Form {...form}>
+    <>
+      <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
@@ -244,5 +245,6 @@ export default function LoginForm({ onSuccess, onRegisterClick }: LoginFormProps
         </Form>
       </DialogContent>
     </Dialog>
+    </>
   );
 }

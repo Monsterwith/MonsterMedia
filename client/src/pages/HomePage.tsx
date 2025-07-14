@@ -56,7 +56,7 @@ export default function HomePage() {
           <div>
             <h2 className="text-xl font-bold mb-2">100% Ad-Free Experience</h2>
             <p className="text-muted-foreground">
-              MONSTERWITH is proudly ad-free for all users. For advertising partnerships or inquiries, 
+              MonsterMedia is proudly ad-free for all users. For advertising partnerships or inquiries, 
               please contact <a href="mailto:sammynewlife1@gmail.com" className="text-primary hover:underline">sammynewlife1@gmail.com</a>
             </p>
           </div>

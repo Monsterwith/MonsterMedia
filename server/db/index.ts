@@ -6,10 +6,7 @@ export async function setupDatabase() {
   try {
     console.log('Setting up database...');
     
-    // Create tables if they don't exist
-    await migrate(db, { migrationsFolder: 'drizzle' });
-    
-    // Initialize admin users
+    // Initialize admin users (tables already exist from db:push)
     await initializeAdminUsers();
     
     console.log('Database setup complete.');
