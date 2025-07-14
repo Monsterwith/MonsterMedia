@@ -1,6 +1,6 @@
 # Overview
 
-MonsterMedia (formerly MONSTERWITH) is a comprehensive multimedia platform for streaming and downloading anime, music, videos, movies, and manga with both free and VIP access options. It's built as a full-stack TypeScript application with a React frontend and Express.js backend, featuring user authentication, content management, AI-powered recommendations, community chat with Sammy bot, and YouTube integration.
+MonsterMedia (formerly MONSTERWITH) is a comprehensive multimedia platform for streaming and downloading anime, music, videos, movies, and manga with both free and VIP access options. It's built as a full-stack web application with a React frontend and Express.js backend, featuring user authentication, content management, AI-powered recommendations, and a community chat system.
 
 # User Preferences
 
@@ -9,12 +9,13 @@ Preferred communication style: Simple, everyday language.
 # System Architecture
 
 ## Frontend Architecture
-- **Framework**: React with TypeScript
-- **Styling**: TailwindCSS with shadcn/ui components
-- **State Management**: React Query for server state, React Context for auth/theme
+- **Framework**: React 18 with TypeScript
+- **Styling**: TailwindCSS with shadcn/ui component library
+- **State Management**: React Query for server state, React Context for authentication and theme
 - **Routing**: Wouter for lightweight client-side routing
 - **Form Handling**: React Hook Form with Zod validation
 - **Build Tool**: Vite for development and production builds
+- **UI Components**: Radix UI primitives via shadcn/ui
 
 ## Backend Architecture
 - **Framework**: Express.js with TypeScript
@@ -22,6 +23,7 @@ Preferred communication style: Simple, everyday language.
 - **Authentication**: Session-based authentication with express-session
 - **Database Provider**: Neon serverless PostgreSQL
 - **API Design**: RESTful endpoints with consistent error handling
+- **Real-time**: Socket.IO for community chat functionality
 
 # Key Components
 
@@ -29,14 +31,16 @@ Preferred communication style: Simple, everyday language.
 - Session-based authentication with secure cookie storage
 - User roles: Regular users, VIP members, and Administrators
 - VIP request system with admin approval workflow
-- Default admin accounts are auto-created on startup
+- Magic link authentication support (configured but not implemented)
+- Social login integration (Google, Facebook, Xbox - configured)
 
 ## Content Management
 - Content types: anime, music, movies, manga, TV shows
 - VIP-gated content with access control
 - Tagging system for improved searchability
 - Age rating system for content restrictions
-- External content integration (YouTube, anime sites, manga platforms)
+- External content integration (YouTube, IMDb, anime sites, manga platforms)
+- Featured content system for homepage
 
 ## User Features
 - Favorites system for bookmarking content
@@ -44,96 +48,112 @@ Preferred communication style: Simple, everyday language.
 - Profile management with customizable themes
 - AI-powered content recommendations (OpenAI integration)
 - Advanced search with type filtering and URL parsing
+- Screenshot prevention system
 
 ## Admin Panel
 - User management (promote/demote, VIP status)
 - VIP request approval system
-- Theme customization (primary, secondary, accent colors)
-- System-wide settings management
-
-## AI Integration
-- OpenAI GPT-4o for content recommendations
-- Chat assistant (Sammy) for user interaction
-- Search enhancement with AI-powered suggestions
-- Fallback responses when AI is unavailable
+- Theme customization (colors, branding)
+- Content moderation capabilities
 
 ## Community Features
-- Real-time community chat with Socket.IO
-- Sammy bot (۞𝑺𝑨𝑴𝑴𝒀۞) integration with Cohere API
-- User tagging system (@username)
-- Image generation with Replicate API
-- Live user presence indicators
+- Real-time chat with Socket.IO
+- AI bot integration (Sammy bot with Cohere/OpenAI)
+- User tagging and mentions
+- Image generation in chat (Bing, Replicate)
+- Online user tracking
 
-## YouTube Integration
-- YouTube API integration for video search
-- Embedded video player with playlist support
-- Video categorization (anime, music, general)
-- Search filters and recommendations
+## External Integrations
+- **YouTube API**: Video search and embedding
+- **IMDb API**: Movie and TV show information
+- **OpenAI**: AI recommendations and chat assistant
+- **Cohere**: Alternative AI chat backend
+- **Replicate**: Image generation
 
 # Data Flow
 
-## User Authentication Flow
-1. User registers/logs in via form validation
-2. Session created and stored in memory/database
-3. Authentication middleware validates session on protected routes
-4. User role determines access to VIP/admin features
+## Database Schema
+The application uses PostgreSQL with Drizzle ORM and includes:
+- `users` table with authentication and role information
+- `content` table with multimedia content metadata
+- `vip_requests` table for VIP membership applications
+- `theme_settings` table for customizable UI themes
+- `favorites` table for user bookmarks
+- `downloads` table for tracking user downloads
 
-## Content Discovery Flow
-1. Featured content displayed on homepage
-2. Category-based browsing with pagination
-3. Search functionality with type filtering
-4. AI recommendations based on user history
-5. External content integration for expanded catalog
+## API Structure
+- `/api/auth/*` - Authentication endpoints
+- `/api/content/*` - Content management and retrieval
+- `/api/admin/*` - Administrative functions
+- `/api/search` - Content search functionality
+- `/api/favorites` - User favorites management
+- `/api/downloads` - Download tracking
+- `/api/ai/*` - AI-powered features
+- `/api/chat` - Chat functionality
 
-## VIP Request Flow
-1. User submits VIP request with reason
-2. Admin receives notification and reviews request
-3. Admin approves/rejects request
-4. User gains access to VIP content upon approval
+## State Management
+- React Query for server state caching and synchronization
+- React Context for authentication state
+- React Context for theme management
+- Local state for UI components
 
 # External Dependencies
 
-## Core Services
-- **Neon PostgreSQL**: Serverless database hosting
-- **OpenAI API**: AI-powered recommendations and chat
-- **YouTube API**: Video content integration
-- **Replicate API**: Image generation capabilities
+## Core Dependencies
+- React 18 with TypeScript
+- Express.js with TypeScript
+- Drizzle ORM with PostgreSQL
+- Neon serverless database
+- Socket.IO for real-time features
 
-## Payment Integration
+## UI/UX Dependencies
+- TailwindCSS for styling
+- Radix UI primitives
+- shadcn/ui component library
+- Wouter for routing
+
+## External APIs
+- OpenAI API for AI features
+- YouTube Data API v3
+- IMDb API for movie data
+- Cohere API for chat
+- Replicate API for image generation
+
+## Payment Integration (Configured)
 - Stripe for card payments
 - PayPal integration
-- Mobile money support (MTN, Airtel, Zamtel)
-
-## Development Tools
-- **Drizzle Kit**: Database migrations and schema management
-- **React Query**: Server state management
-- **Zod**: Runtime type validation
-- **shadcn/ui**: Pre-built component library
+- Mobile money providers (MTN, Airtel, Zamtel)
 
 # Deployment Strategy
 
 ## Environment Configuration
-- Development: Local development with hot reload
-- Production: Railway deployment with health checks
-- Database: Neon serverless PostgreSQL
-- Static Assets: Served via Express in production
+- Database connection via `DATABASE_URL`
+- API keys for external services
+- Session secrets for authentication
+- OAuth credentials for social login
 
 ## Build Process
-1. Frontend assets built with Vite
-2. Backend bundled with esbuild
-3. Database migrations run automatically
-4. Admin users created on startup
-5. Health check endpoint for monitoring
+- Vite builds the frontend to `dist/public`
+- esbuild bundles the backend to `dist/index.js`
+- Database migrations handled by Drizzle Kit
+
+## Deployment Targets
+- Railway deployment configuration included
+- Health check endpoint at `/api/health`
+- Production build optimizations
+- Auto-restart policies configured
+
+## Development Setup
+- Hot reload via Vite
+- TypeScript checking
+- Database schema management with Drizzle
+- Environment variable management
 
 ## Security Features
-- Session-based authentication with secure cookies
-- Input validation with Zod schemas
-- SQL injection prevention via Drizzle ORM
-- Screenshot prevention on sensitive content
-- CORS configuration for API security
+- Screenshot prevention system
+- Session-based authentication
+- CORS configuration
+- Input validation with Zod
+- Role-based access control
 
-## Monitoring & Maintenance
-- Health check endpoint at `/api/health`
-- Error handling with structured logging
-- Database connection pooling
-- Session cleanup and memory management
+The application is designed to be scalable and maintainable, with clear separation of concerns between frontend and backend, comprehensive error handling, and robust user management systems.
